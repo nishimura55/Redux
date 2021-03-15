@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Post from './components/post';
 
 function App() {
+  const count = useSelector((state) => state.count.count);
+  const dispach = useDispatch();
+
+  const incrementCount = () => {
+    dispach({ type: 'increment_count' });
+  };
+  const resetCount = () => {
+    dispach({ type: 'reset_count' });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Counter: {count}</p>
+      <button onClick={incrementCount}>Up</button>
+      <button onClick={resetCount}>Reset</button>
+      <Post clickButton={incrementCount}/>
     </div>
   );
 }
